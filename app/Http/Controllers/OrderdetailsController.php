@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
+use App\Models\Orderdetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends Controller
+class OrderdetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,7 +40,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'users_id' => 'required',
+            'orders_id' => 'required',
             'products_id' => 'required',
             'quantity'=>'required',
             'per_amount'=>'required'
@@ -50,26 +50,27 @@ class CartController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $cart = Cart::create([
-            'users_id' =>$request->users_id,
+        $order = Orderdetails::create([
+            'orders_id' =>$request->orders_id,
             'products_id' => $request->products_id,
             'quantity' => $request->quantity,
             'per_amount'=>$request->per_amount,
+            
             ]);
 
         return response()->json([
-            'message' => 'Cart Added successfully',
-            'product' => $cart
+            'message' => 'order Added successfully',
+            'product' => $order
         ], Response::HTTP_OK);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\Orderdetails  $orderdetails
      * @return \Illuminate\Http\Response
      */
-    public function show(Cart $cart)
+    public function show(Orderdetails $orderdetails)
     {
         //
     }
@@ -77,10 +78,10 @@ class CartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\Orderdetails  $orderdetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cart $cart)
+    public function edit(Orderdetails $orderdetails)
     {
         //
     }
@@ -89,10 +90,10 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\Orderdetails  $orderdetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, Orderdetails $orderdetails)
     {
         //
     }
@@ -100,10 +101,10 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\Orderdetails  $orderdetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy(Orderdetails $orderdetails)
     {
         //
     }

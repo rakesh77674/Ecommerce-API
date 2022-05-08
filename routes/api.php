@@ -6,6 +6,9 @@ use App\Http\Controllers\JWTController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductSubCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderdetailsController;
 
 Route::group(['middleware' => 'api'], function($router) {
     Route::post('/register', [JWTController::class, 'register']);
@@ -32,4 +35,10 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::post('/addcart',[CartController::class,'store']);
     Route::post('/showcart/{id}',[CartController::class,'show']);
     Route::post('/deletecart/{id}',[CartController::class,'destroy']);
+    Route::post('/addorder',[OrderController::class,'store']);
+    Route::post('/showorder/{id}',[OrderController::class,'show']);
+    Route::post('/deleteorder/{id}',[OrderController::class,'destroy']);
+    Route::post('/addorderdetails',[OrderdetailsController::class,'store']);
+    // Route::post('/showod/{id}',[OrderDetailController::class,'showod']);
+    // Route::post('/deleteod/{id}',[OrderDetailController::class,'deleteod']);
 });
