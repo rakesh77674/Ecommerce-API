@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignid('product_sub_categories_id');
             $table->string('product_name');
             $table->string('slug');
-            $table->string('descrition');
+            $table->string('description');
             $table->string('discount');
             $table->string('price');
             $table->string('quantity');

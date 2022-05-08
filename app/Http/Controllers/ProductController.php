@@ -62,18 +62,19 @@ class ProductController extends Controller
         }
 
         $product = Product::create([
-            'pproduct_sub_categories_id' => $request->product_sub_categories_id,
+            'product_sub_categories_id' => $request->product_sub_categories_id,
                 'product_name' => $request->product_name,
                 'slug' => $request->product_name,
                 'description' => $request->description,
                 'discount' => $request->discount,
                 'price' => $request->price,
-                'quantity' => $request->quanitity,
+                'quantity' => $request->quantity,
                 'product_excerpt' => $request->product_excerpt,
                 $banner = $request->banner,
                 $imageName = time().'.'.$banner->getClientOriginalExtension(),
                 $request->banner->move('productimage', $imageName),
                 $banner = "/productimage/".$imageName,
+                'banner' => $request->banner,
                 'created_by' => Auth::user()->id,
                 'updated_by' => Auth::user()->id,
             ]);

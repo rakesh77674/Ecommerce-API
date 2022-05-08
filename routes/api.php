@@ -28,4 +28,8 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::post('/addproducts', [ProductController::class, 'store']);
     Route::put('updateproducts/{id}',  [ProductController::class, 'update']);
     Route::delete('deleteproducts/{id}',  [ProductController::class, 'destroy']);
+
+    Route::post('/addcart',[CartController::class,'store']);
+    Route::post('/showcart/{id}',[CartController::class,'show']);
+    Route::post('/deletecart/{id}',[CartController::class,'destroy']);
 });
