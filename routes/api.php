@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderdetailsController;
+use App\Http\Controllers\AdminController;
 
 Route::group(['middleware' => 'api'], function($router) {
     Route::post('/register', [JWTController::class, 'register']);
@@ -41,4 +42,7 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::post('/addorderdetails',[OrderdetailsController::class,'store']);
     // Route::post('/showod/{id}',[OrderDetailController::class,'showod']);
     // Route::post('/deleteod/{id}',[OrderDetailController::class,'deleteod']);
+    Route::post('/addorderdetails',[OrderdetailsController::class,'store']);
+    Route::get('/admin/order/{id}',[AdminController::class,'show']);
+    
 });

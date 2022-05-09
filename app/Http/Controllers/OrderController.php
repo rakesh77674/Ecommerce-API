@@ -78,7 +78,7 @@ class OrderController extends Controller
         return response()->json([
             'message' => 'order Added successfully',
             'product' => $order
-        ], Response::HTTP_OK);
+        ], 201);
     }
 
     /**
