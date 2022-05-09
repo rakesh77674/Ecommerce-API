@@ -19,8 +19,8 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::get('/productcategory', [ProductCategoryController::class, 'index']);
     Route::get('/productcategory/{id}', [ProductCategoryController::class, 'show']);
     Route::post('/addproductcategory', [ProductCategoryController::class, 'store']);
-    Route::put('updatecategory/{id}',  [ProductCategoryController::class, 'update']);
-    Route::delete('delete/{id}',  [ProductCategoryController::class, 'destroy']);
+    Route::put('/updatecategory/{id}',  [ProductCategoryController::class, 'update']);
+    Route::delete('/deletecategory/{id}',  [ProductCategoryController::class, 'destroy']);
     Route::get('/productsubcategory', [ProductCategoryController::class, 'index']);
     Route::get('/productsubcategory/{id}', [ProductCategoryController::class, 'show']);
     Route::post('/addproductsubcategory', [ProductSubCategoryController::class, 'store']);

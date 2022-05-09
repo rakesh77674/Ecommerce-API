@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Helpers\Helper;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,6 @@ class OrderController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'users_id' => 'required',
-            'order_number' => 'required',
             'quantity'=>'required',
             'order_date'=>'required',
             'per_amount'=>'required'
@@ -50,14 +50,30 @@ class OrderController extends Controller
         if($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+        $order_number = $request->order_number;
+        $order_number = Helper::IDGenerator(new Order, 'order_number', 5, ''); /** Generate id */
+        $order = new Order;
+        $order->order_number = $order_number;
+        
+        // $order = new Order;
+         $order->users_id = $request->users_id;
+        // $order->order_number = $request->status;
+        // $latestOrder = Order::orderBy('created_at','DESC')->first();
+        // $order->order_number = ''.str_pad($latestOrder->id + 0, 3, "0", STR_PAD_LEFT);
+         $order->quantity = $request->quantity;
+         $order->per_amount= $request->per_amount;
+         $order->order_date= $request->order_date;
+         $order->save();
 
-        $order = Order::create([
-            'users_id' =>$request->users_id,
-            'order_number' => $request->order_number,
-            'quantity' => $request->quantity,
-            'per_amount'=>$request->per_amount,
-            'order_date'=>$request->order_date,
-            ]);
+        // $order = Order::create([
+            
+        //     $order->user_id = Auth()->id();
+        //     $latestOrder = App\Order::orderBy('created_at','DESC')->first();
+        //     $order->order_nr = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+        //     'quantity' => $request->quantity,
+        //     'per_amount'=>$request->per_amount,
+        //     'order_date'=>$request->order_date,
+        //     ]);
 
         return response()->json([
             'message' => 'order Added successfully',

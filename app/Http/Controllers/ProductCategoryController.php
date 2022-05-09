@@ -111,25 +111,20 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $productcategory = $request->only('category_name', 'slug', 'status');
-        $validator = Validator::make($productcategory, [
-            'category_name' => 'required|string',
-            'slug' => 'required'
-  
+        $validator = Validator::make($request->all(), [
+            'product_name' => 'required',
+            'subcategory_id'=>'required'
         ]);
-        //Send failed response if request is not valid
-        if ($validator->fails()) {
-            return response()->json();
-        }
-       ProductCategory::find($id)->update();
-        //Request is valid, update product
-        
 
-        //Product updated, return success response
+        if($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+         $productcategory=  ProductCategory::findOrFail($id)->update();
+
         return response()->json([
-            'success' => true,
-            'message' => 'Product updated successfully',
-            'data' => $productcategory
+            'message' => 'Product Updated successfully',
+            'product' => $productcategory
         ], Response::HTTP_OK);
     }
 
@@ -141,6 +136,7 @@ class ProductCategoryController extends Controller
      */
     public function destroy($id)
     {
-        ProductCategory::find($id)->delete();
+        $productcategory=ProductCategory::findOrFail($id);
+        $productcategory->delete();
     }
 }
