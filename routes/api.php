@@ -44,5 +44,6 @@ Route::group(['middleware' => 'api'], function($router) {
     // Route::post('/deleteod/{id}',[OrderDetailController::class,'deleteod']);
     Route::post('/addorderdetails',[OrderdetailsController::class,'store']);
     Route::get('/admin/order/{id}',[AdminController::class,'show']);
+    Route::put('/admin/update-order/{id}',[AdminController::class,'update']);
     
 });
