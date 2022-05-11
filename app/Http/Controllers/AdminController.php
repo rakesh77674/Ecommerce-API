@@ -10,40 +10,36 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
-    public function show($id){ 
-
-        // $product = Order::where('users_id','=',auth()->id())->get();
-        if($id=-1){
+    public function show(Request $request, $id){    
+            if($id==-1){
             $product = Order::get();
             return response()->json([
-                'message' => 'Order show successfully',
-                'product' => $product
-            ], 200);
-        }
-        $product=Order::findOrFail($id);
-        
-        return response()->json([
+            'message' => 'Order show successfully',
+            'product' => $product
+            ], 200);}
+          else
+        // $product = Order::where('users_id','=',auth()->id())->get();
+
+    $product = Order::select('id','quantity', 'per_amount', 'order_date','order_number','order_status')->where('status','1')->get();
+     return response()->json([
             'message' => 'Order show successfully',
             'product' => $product
         ], 200);
    
     }
    public function update( Request $request, $id){
-    if($id=-1){
+       if($id==-1){
         $product = Order::get();
         return response()->json([
             'message' => 'Order show successfully',
             'product' => $product
-        ], 200);
-    }
-    $product = Order::where('users_id','=',auth()->id())->where('status','0')->get();
-    $product=Order::find($id);
-    $product->per_amount = $request->per_amount;
-    $product->order_date = $request->order_date;
-    $product->quantity = $request->quantity;
-    $product->save();
-    
-    
+        ], 200);}else
+            $product = Order::find($id);
+         //$product = Order::find($id)->select('id','quantity', 'per_amount', 'order_date','order_number','order_status')->where('status','1')->get();
+            $product->per_amount = $request->per_amount;
+            $product->order_date = $request->order_date;
+            $product->quantity = $request->quantity;
+             $product->save();
     return response()->json([
         'message' => 'Order update successfully',
         'product' => $product

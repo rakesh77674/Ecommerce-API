@@ -54,16 +54,11 @@ class OrderController extends Controller
         $order_number = Helper::IDGenerator(new Order, 'order_number', 5, ''); /** Generate id */
         $order = new Order;
         $order->order_number = $order_number;
-        
-        // $order = new Order;
-         $order->users_id = $request->users_id;
-        // $order->order_number = $request->status;
-        // $latestOrder = Order::orderBy('created_at','DESC')->first();
-        // $order->order_number = ''.str_pad($latestOrder->id + 0, 3, "0", STR_PAD_LEFT);
-         $order->quantity = $request->quantity;
-         $order->per_amount= $request->per_amount;
-         $order->order_date= $request->order_date;
-         $order->save();
+        $order->users_id = $request->users_id;
+        $order->quantity = $request->quantity;
+        $order->per_amount= $request->per_amount;
+        $order->order_date= $request->order_date;
+        $order->save();
 
         // $order = Order::create([
             
