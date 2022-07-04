@@ -10,6 +10,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderdetailsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NewPasswordController;
+use App\Http\Controllers\ValidationException;
 
 Route::group(['middleware' => 'api'], function($router) {
     Route::post('/register', [JWTController::class, 'register']);
@@ -45,5 +47,8 @@ Route::group(['middleware' => 'api'], function($router) {
     Route::post('/addorderdetails',[OrderdetailsController::class,'store']);
     Route::get('/admin/order/{id}',[AdminController::class,'show']);
     Route::put('/admin/update-order/{id}',[AdminController::class,'update']);
+    //Change password ecommerce
+    Route::post('forgot-password',[NewPasswordController::class,'forgotPassword']);
+    Route::post('reset-password', [NewPasswordController::class, 'reset']);
     
 });

@@ -60,7 +60,7 @@ class CartController extends Controller
         return response()->json([
             'message' => 'Cart Added successfully',
             'product' => $cart
-        ], Response::HTTP_OK);
+        ], 201);
     }
 
     /**

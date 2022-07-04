@@ -14,33 +14,38 @@ class AdminController extends Controller
             if($id==-1){
             $product = Order::get();
             return response()->json([
+            'success' => true,
             'message' => 'Order show successfully',
             'product' => $product
-            ], 200);}
+            ], 201);}
           else
         // $product = Order::where('users_id','=',auth()->id())->get();
 
-    $product = Order::select('id','quantity', 'per_amount', 'order_date','order_number','order_status')->where('status','1')->get();
+    $product = Order::select('id','quantity', 'per_amount', 'order_date','order_number','order_status')->where('users_id',$id)->get();
      return response()->json([
+            'success' => true,
             'message' => 'Order show successfully',
             'product' => $product
-        ], 200);
+        ], 201);
    
     }
    public function update( Request $request, $id){
        if($id==-1){
         $product = Order::get();
         return response()->json([
+            'success' => true,
             'message' => 'Order show successfully',
             'product' => $product
-        ], 200);}else
+        ], 201);}else
+
             $product = Order::find($id);
          //$product = Order::find($id)->select('id','quantity', 'per_amount', 'order_date','order_number','order_status')->where('status','1')->get();
             $product->per_amount = $request->per_amount;
             $product->order_date = $request->order_date;
             $product->quantity = $request->quantity;
-             $product->save();
-    return response()->json([
+            $product->save();
+         return response()->json([
+        'success' => true,
         'message' => 'Order update successfully',
         'product' => $product
     ], 201);
